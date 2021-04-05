@@ -87,18 +87,17 @@ anomaly_algorithms = [
                                          random_state=42)),
     ("Local Outlier Factor", LocalOutlierFactor(
         n_neighbors=35, contamination=outliers_fraction))]
-i3e_data = pd.read_csv('/Users/han/Desktop/Dissertation/Heating-System-Analysis/i3e_data.csv')
-pd1 = i3e_data[['М1, t', 'М2, t']]
 
+i3e_data = pd.read_csv('/Users/han/Desktop/Dissertation/Heating-System-Analysis/i3e_data_ex.csv')
+
+pd1 = i3e_data[['Q, Gcal', 'ΔТ, °C']].values
+pd2 = i3e_data[['Q, Gcal', 'ΔМ, t']].values
+pd3 = i3e_data[['Q, Gcal', 'area']].values
+pd4 = i3e_data[['Q, Gcal', 'area of building']].values
+pd5 = i3e_data[['Q, Gcal', 'temp,˚C']].values
 # Define datasets
 blobs_params = dict(random_state=0, n_samples=n_inliers, n_features=2)
-datasets = [
-    pd1.values,
-    pd1.values,
-    pd1.values,
-    pd1.values,
-    pd1.values
-    ]
+datasets = [pd1, pd2, pd3, pd4, pd5]
 '''
     make_blobs(centers=[[0, 0], [0, 0]], cluster_std=0.5,
                **blobs_params)[0],
@@ -157,5 +156,6 @@ for i_dataset, dataset in enumerate(datasets):
                  transform=plt.gca().transAxes, size=15,
                  horizontalalignment='right')
         plot_num += 1
+        print(plot_num)
 
 plt.show()
